@@ -316,8 +316,8 @@ namespace nUpdate.Administration.UI.Dialogs
                 _ftp.Password = ftpPassword; // Same instance that FtpManager will automatically dispose
 
                 _ftp.UsePassiveMode = ftpModeComboBox.SelectedIndex == 0;
-                _ftp.Protocol = (FtpsSecurityProtocol) ftpProtocolComboBox.SelectedIndex;
-                _ftp.NetworkVersion = (NetworkVersion) ipVersionComboBox.SelectedIndex;
+                _ftp.Protocol = (FtpsSecurityProtocol)ftpProtocolComboBox.SelectedIndex;
+                _ftp.NetworkVersion = (NetworkVersion)ipVersionComboBox.SelectedIndex;
 
                 if (!backButton.Enabled) // If the back-button was disabled, enabled it again
                     backButton.Enabled = true;
@@ -341,7 +341,7 @@ namespace nUpdate.Administration.UI.Dialogs
             else if (_sender == proxyTabPage)
             {
                 if (useProxyRadioButton.Checked &&
-                    !ValidationManager.ValidateAndIgnore(proxyTabPage, new[] {proxyUserTextBox, proxyPasswordTextBox}))
+                    !ValidationManager.ValidateAndIgnore(proxyTabPage, new[] { proxyUserTextBox, proxyPasswordTextBox }))
                 {
                     Popup.ShowPopup(this, SystemIcons.Error, "Missing information found.",
                         "All fields need to have a value.", PopupButtons.Ok);
@@ -433,7 +433,7 @@ namespace nUpdate.Administration.UI.Dialogs
                     FtpProtocol = ftpProtocolComboBox.SelectedIndex,
                     FtpUsePassiveMode = usePassive,
                     FtpTransferAssemblyFilePath = _ftpAssemblyPath,
-                    FtpNetworkVersion = (NetworkVersion) ipVersionComboBox.SelectedIndex,
+                    FtpNetworkVersion = (NetworkVersion)ipVersionComboBox.SelectedIndex,
                     Proxy = proxy,
                     ProxyUsername = proxyUsername,
                     ProxyPassword = proxyPassword,
@@ -733,7 +733,7 @@ INSERT INTO Application (`ID`, `Name`) VALUES (_APPID, '_APPNAME');";
                         {
                             myConnectionString = $"SERVER='{SqlWebUrl}';" + $"DATABASE='{SqlDatabaseName}';" +
                                                  $"UID='{SqlUsername}';" +
-                                                 $"PASSWORD='{sqlPasswordTextBox.Text}';SslMode=None;AllowPublicKeyRetrieval=true;";
+                                                 $"PASSWORD='{sqlPasswordTextBox.Text}';SslMode=None;AllowPublicKeyRetrieval=true;SslMode=None;AllowPublicKeyRetrieval=true;";
                         }));
 
                         myConnection = new MySqlConnection(myConnectionString);
@@ -865,7 +865,7 @@ INSERT INTO Application (`ID`, `Name`) VALUES (_APPID, '_APPNAME');";
 
         private void searchOnServerButton_Click(object sender, EventArgs e)
         {
-            if (!ValidationManager.ValidateAndIgnore(ftpPanel, new[] {ftpDirectoryTextBox}))
+            if (!ValidationManager.ValidateAndIgnore(ftpPanel, new[] { ftpDirectoryTextBox }))
             {
                 Popup.ShowPopup(this, SystemIcons.Error, "Missing information.",
                     "All input fields need to have a value in order to send a request to the server.", PopupButtons.Ok);
@@ -884,7 +884,7 @@ INSERT INTO Application (`ID`, `Name`) VALUES (_APPID, '_APPNAME');";
                 Username = ftpUserTextBox.Text,
                 Password = securePwd,
                 Protocol = ftpProtocolComboBox.SelectedIndex,
-                NetworkVersion = (NetworkVersion) ipVersionComboBox.SelectedIndex
+                NetworkVersion = (NetworkVersion)ipVersionComboBox.SelectedIndex
             };
 
             if (searchDialog.ShowDialog() == DialogResult.OK)
@@ -903,7 +903,7 @@ INSERT INTO Application (`ID`, `Name`) VALUES (_APPID, '_APPNAME');";
 
         private void selectServerButton_Click(object sender, EventArgs e)
         {
-            var statisticsServerDialog = new StatisticsServerDialog {ReactsOnKeyDown = true};
+            var statisticsServerDialog = new StatisticsServerDialog { ReactsOnKeyDown = true };
             if (statisticsServerDialog.ShowDialog() != DialogResult.OK)
                 return;
 

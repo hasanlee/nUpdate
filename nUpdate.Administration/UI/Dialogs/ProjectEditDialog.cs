@@ -435,7 +435,7 @@ DELETE FROM Application WHERE `ID` = _APPID;";
                     {
                         myConnectionString = $"SERVER='{SqlWebUrl}';" + $"DATABASE='{SqlDatabaseName}';" +
                                              $"UID='{SqlUsername}';" +
-                                             $"PASSWORD='{sqlPasswordTextBox.Text}';";
+                                             $"PASSWORD='{sqlPasswordTextBox.Text}';SslMode=None;AllowPublicKeyRetrieval=true;";
                     }));
 
                     myConnection = new MySqlConnection(myConnectionString);
@@ -573,7 +573,7 @@ INSERT INTO Application (`ID`, `Name`) VALUES (_APPID, '_APPNAME');";
                     {
                         myConnectionString = $"SERVER='{SqlWebUrl}';" + $"DATABASE='{SqlDatabaseName}';" +
                                              $"UID='{SqlUsername}';" +
-                                             $"PASSWORD='{sqlPasswordTextBox.Text}';";
+                                             $"PASSWORD='{sqlPasswordTextBox.Text}';SslMode=None;AllowPublicKeyRetrieval=true;";
                     }));
 
                     myConnection = new MySqlConnection(myConnectionString);
@@ -793,8 +793,8 @@ INSERT INTO Application (`ID`, `Name`) VALUES (_APPID, '_APPNAME');";
                 _ftp.Password = ftpPassword;
 
                 _ftp.UsePassiveMode = ftpModeComboBox.SelectedIndex == 0;
-                _ftp.Protocol = (FtpsSecurityProtocol) ftpProtocolComboBox.SelectedIndex;
-                _ftp.NetworkVersion = (NetworkVersion) ipVersionComboBox.SelectedIndex;
+                _ftp.Protocol = (FtpsSecurityProtocol)ftpProtocolComboBox.SelectedIndex;
+                _ftp.NetworkVersion = (NetworkVersion)ipVersionComboBox.SelectedIndex;
                 if (!backButton.Enabled) // If the back-button was disabled, enable it again
                     backButton.Enabled = true;
 
@@ -828,7 +828,7 @@ INSERT INTO Application (`ID`, `Name`) VALUES (_APPID, '_APPNAME');";
             else if (_sender == proxyTabPage)
             {
                 if (useProxyRadioButton.Checked &&
-                    !ValidationManager.ValidateAndIgnore(proxyTabPage, new[] {proxyUserTextBox, proxyPasswordTextBox}))
+                    !ValidationManager.ValidateAndIgnore(proxyTabPage, new[] { proxyUserTextBox, proxyPasswordTextBox }))
                 {
                     Popup.ShowPopup(this, SystemIcons.Error, "Missing information found.",
                         "All fields need to have a value.", PopupButtons.Ok);
@@ -959,7 +959,7 @@ INSERT INTO Application (`ID`, `Name`) VALUES (_APPID, '_APPNAME');";
                     _useStatistics = useStatisticsServerRadioButton.Checked;
                 }));
 
-                bool synchronizeData = (bool) Invoke(
+                bool synchronizeData = (bool)Invoke(
                     new Func<bool>(
                         () =>
                             Popup.ShowPopup(this, SystemIcons.Question,
@@ -1026,7 +1026,7 @@ INSERT INTO Application (`ID`, `Name`) VALUES (_APPID, '_APPNAME');";
                 }
 
                 if (Project.Path != _localPath)
-                    if ((bool) Invoke(new Func<bool>(
+                    if ((bool)Invoke(new Func<bool>(
                         () =>
                             Popup.ShowPopup(this, SystemIcons.Question, "Automatically move the project file?",
                                 "nUpdate Administration noticed that the path of the local project file has changed. Should nUpdate Administration move it to this new location? Choose \"No\", if the file is already located at the path that you specified.",
@@ -1484,7 +1484,7 @@ DELETE FROM Application WHERE `ID` = _APPID;";
                                 myConnectionString =
                                     $"SERVER='{Project.SqlWebUrl}';" + $"DATABASE='{Project.SqlDatabaseName}';" +
                                     $"UID='{Project.SqlUsername}';" +
-                                    $"PASSWORD='{SqlPassword.ConvertToInsecureString()}';";
+                                    $"PASSWORD='{SqlPassword.ConvertToInsecureString()}';SslMode=None;AllowPublicKeyRetrieval=true;";
                             }));
 
                             myConnection = new MySqlConnection(myConnectionString);
@@ -1551,8 +1551,8 @@ DELETE FROM Application WHERE `ID` = _APPID;";
                     }
                 }
 
-                // Save the project data
-                saveData:
+            // Save the project data
+            saveData:
 
                 Project.Name = _name;
                 Project.Path = _localPath;
@@ -1577,7 +1577,7 @@ DELETE FROM Application WHERE `ID` = _APPID;";
                                 Program.AesIvPassword));
                     Project.FtpUsePassiveMode = ftpModeComboBox.SelectedIndex == 0;
                     Project.FtpProtocol = ftpProtocolComboBox.SelectedIndex;
-                    Project.FtpNetworkVersion = (NetworkVersion) ipVersionComboBox.SelectedIndex;
+                    Project.FtpNetworkVersion = (NetworkVersion)ipVersionComboBox.SelectedIndex;
                     Project.FtpDirectory = ftpDirectoryTextBox.Text;
                     Project.FtpTransferAssemblyFilePath = ftpProtocolComboBox.SelectedIndex ==
                                                           ftpProtocolComboBox.Items.Count - 1
@@ -1769,7 +1769,7 @@ DELETE FROM Application WHERE `ID` = _APPID;";
             ftpModeComboBox.SelectedIndex = Project.FtpUsePassiveMode ? 0 : 1;
             ftpProtocolComboBox.SelectedIndex = Project.FtpProtocol;
             ftpDirectoryTextBox.Text = Project.FtpDirectory;
-            ipVersionComboBox.SelectedIndex = (int) Project.FtpNetworkVersion;
+            ipVersionComboBox.SelectedIndex = (int)Project.FtpNetworkVersion;
 
             try
             {
@@ -1808,7 +1808,7 @@ DELETE FROM Application WHERE `ID` = _APPID;";
 
         private void searchOnServerButton_Click(object sender, EventArgs e)
         {
-            if (!ValidationManager.ValidateAndIgnore(ftpPanel, new[] {ftpDirectoryTextBox}))
+            if (!ValidationManager.ValidateAndIgnore(ftpPanel, new[] { ftpDirectoryTextBox }))
             {
                 Popup.ShowPopup(this, SystemIcons.Error, "Missing information.",
                     "All input fields need to have a value in order to send a request to the server.", PopupButtons.Ok);
@@ -1827,7 +1827,7 @@ DELETE FROM Application WHERE `ID` = _APPID;";
                 Username = ftpUserTextBox.Text,
                 Password = securePwd,
                 Protocol = ftpProtocolComboBox.SelectedIndex,
-                NetworkVersion = (NetworkVersion) ipVersionComboBox.SelectedIndex
+                NetworkVersion = (NetworkVersion)ipVersionComboBox.SelectedIndex
             };
 
             if (searchDialog.ShowDialog() == DialogResult.OK)
@@ -1846,7 +1846,7 @@ DELETE FROM Application WHERE `ID` = _APPID;";
 
         private void selectServerButton_Click(object sender, EventArgs e)
         {
-            var statisticsServerDialog = new StatisticsServerDialog {ReactsOnKeyDown = true};
+            var statisticsServerDialog = new StatisticsServerDialog { ReactsOnKeyDown = true };
             if (statisticsServerDialog.ShowDialog() != DialogResult.OK)
                 return;
 

@@ -168,7 +168,7 @@ namespace nUpdate.Administration.UI.Dialogs
                 Invoke(new Action(() => loadingLabel.Text = "Connecting to SQL-server..."));
                 var connectionString = $"SERVER='{Project.SqlWebUrl}';" + $"DATABASE='{Project.SqlDatabaseName}';" +
                                        $"UID='{Project.SqlUsername}';" +
-                                       $"PASSWORD='{SqlPassword.ConvertToInsecureString()}';";
+                                       $"PASSWORD='{SqlPassword.ConvertToInsecureString()}';SslMode=None;AllowPublicKeyRetrieval=true;";
 
                 MySqlConnection myConnection = null;
                 try
@@ -648,7 +648,7 @@ namespace nUpdate.Administration.UI.Dialogs
 
                     var connectionString = $"SERVER='{Project.SqlWebUrl}';" + $"DATABASE='{Project.SqlDatabaseName}';" +
                                            $"UID='{Project.SqlUsername}';" +
-                                           $"PASSWORD='{SqlPassword.ConvertToInsecureString()}';";
+                                           $"PASSWORD='{SqlPassword.ConvertToInsecureString()}';SslMode=None;AllowPublicKeyRetrieval=true;";
 
                     MySqlConnection myConnection = null;
                     try

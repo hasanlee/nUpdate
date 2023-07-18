@@ -27,7 +27,7 @@ namespace nUpdate.Administration.UI.Dialogs
 {
     public partial class ProjectDialog : BaseDialog, IAsyncSupportable, IResettable
     {
-// ReSharper disable once InconsistentNaming
+        // ReSharper disable once InconsistentNaming
         private const float KB = 1024;
 
         // ReSharper disable once InconsistentNaming
@@ -90,7 +90,7 @@ namespace nUpdate.Administration.UI.Dialogs
 
                 var connectionString = $"SERVER='{Project.SqlWebUrl}';" + $"DATABASE='{Project.SqlDatabaseName}';" +
                                        $"UID='{Project.SqlUsername}';" +
-                                       $"PASSWORD='{SqlPassword.ConvertToInsecureString()}';";
+                                       $"PASSWORD='{SqlPassword.ConvertToInsecureString()}';SslMode=None;AllowPublicKeyRetrieval=true;";
 
                 MySqlConnection deleteConnection = null;
                 try
@@ -360,7 +360,7 @@ namespace nUpdate.Administration.UI.Dialogs
 
         private void CurrentChartClosed(object sender, EventArgs e)
         {
-            chartPanel.Controls.Remove((StatisticsChart) sender);
+            chartPanel.Controls.Remove((StatisticsChart)sender);
             chartPanel.Visible = false;
             updateStatisticsButton.Enabled = true;
             statisticsDataGridView.Visible = true;
@@ -400,7 +400,7 @@ namespace nUpdate.Administration.UI.Dialogs
 
         private void historyButton_Click(object sender, EventArgs e)
         {
-            var historyDialog = new HistoryDialog {Project = Project};
+            var historyDialog = new HistoryDialog { Project = Project };
             historyDialog.ShowDialog();
         }
 
@@ -432,7 +432,7 @@ namespace nUpdate.Administration.UI.Dialogs
             if (packagesList.SelectedItems.Count == 0)
                 return;
 
-            var packageVersion = new UpdateVersion((string) packagesList.SelectedItems[0].Tag);
+            var packageVersion = new UpdateVersion((string)packagesList.SelectedItems[0].Tag);
             UpdatePackage correspondingPackage;
 
             try
@@ -544,11 +544,11 @@ namespace nUpdate.Administration.UI.Dialogs
                         string sizeText = null;
 
                         if (sizeInBytes >= 107374182.4) // 0,1 GB
-                            sizeText = $"{(float) Math.Round(sizeInBytes / GB, 1)} GB";
+                            sizeText = $"{(float)Math.Round(sizeInBytes / GB, 1)} GB";
                         else if (sizeInBytes >= 104857.6) // 0,1 MB
-                            sizeText = $"{(float) Math.Round(sizeInBytes / MB, 1)} MB";
+                            sizeText = $"{(float)Math.Round(sizeInBytes / MB, 1)} MB";
                         else if (sizeInBytes >= 102.4) // 0,1 KB
-                            sizeText = $"{(float) Math.Round(sizeInBytes / KB, 1)} KB";
+                            sizeText = $"{(float)Math.Round(sizeInBytes / KB, 1)} KB";
                         else if (sizeInBytes >= 1) // 1 B
                             sizeText = $"{sizeInBytes} B";
 
@@ -710,7 +710,7 @@ namespace nUpdate.Administration.UI.Dialogs
 
                 var connectionString = $"SERVER='{Project.SqlWebUrl}';" + $"DATABASE='{Project.SqlDatabaseName}';" +
                                        $"UID='{Project.SqlUsername}';" +
-                                       $"PASSWORD='{SqlPassword.ConvertToInsecureString()}';";
+                                       $"PASSWORD='{SqlPassword.ConvertToInsecureString()}';SslMode=None;AllowPublicKeyRetrieval=true;";
 
                 try
                 {
@@ -1039,7 +1039,7 @@ namespace nUpdate.Administration.UI.Dialogs
             _configurationFileUrl = UriConnector.ConnectUri(Project.UpdateUrl, "updates.json");
 
             Text = string.Format(Text, Project.Name, Program.VersionString);
-            string[] programmingLanguages = {"VB.NET", "C#"};
+            string[] programmingLanguages = { "VB.NET", "C#" };
             programmingLanguageComboBox.DataSource = programmingLanguages;
             programmingLanguageComboBox.SelectedIndex = 0;
             cancelToolTip.SetToolTip(cancelLabel, "Click here to cancel the package upload.");
@@ -1209,7 +1209,7 @@ namespace nUpdate.Administration.UI.Dialogs
             if (!e.Control || e.KeyCode != Keys.A)
                 return;
             if (sender != null)
-                ((TextBox) sender).SelectAll();
+                ((TextBox)sender).SelectAll();
             e.Handled = true;
         }
 
@@ -1239,7 +1239,7 @@ namespace nUpdate.Administration.UI.Dialogs
                 _dataGridViewRowTags.First(
                         item =>
                             item.Key ==
-                            UpdateVersion.FromFullText((string) statisticsDataGridView.Rows[e.RowIndex].Cells[0].Value))
+                            UpdateVersion.FromFullText((string)statisticsDataGridView.Rows[e.RowIndex].Cells[0].Value))
                     .Value;
             chart.TotalDownloadCount = Convert.ToInt32(statisticsDataGridView.Rows[e.RowIndex].Cells[1].Value);
             chart.StatisticsChartClosed += CurrentChartClosed;
@@ -1260,7 +1260,7 @@ namespace nUpdate.Administration.UI.Dialogs
             if (packagesList.SelectedItems.Count == 0)
                 return;
 
-            var version = new UpdateVersion((string) packagesList.SelectedItems[0].Tag);
+            var version = new UpdateVersion((string)packagesList.SelectedItems[0].Tag);
             await UploadPackage(version);
         }
 
@@ -1329,7 +1329,7 @@ namespace nUpdate.Administration.UI.Dialogs
 
                     var connectionString = $"SERVER='{Project.SqlWebUrl}';" + $"DATABASE='{Project.SqlDatabaseName}';" +
                                            $"UID='{Project.SqlUsername}';" +
-                                           $"PASSWORD='{SqlPassword.ConvertToInsecureString()}';";
+                                           $"PASSWORD='{SqlPassword.ConvertToInsecureString()}';SslMode=None;AllowPublicKeyRetrieval=true;";
 
                     MySqlConnection insertConnection = null;
                     try
@@ -1516,7 +1516,7 @@ namespace nUpdate.Administration.UI.Dialogs
                 Invoke(
                     new Action(
                         () =>
-                            packageVersion = new UpdateVersion((string) packagesList.SelectedItems[0].Tag)));
+                            packageVersion = new UpdateVersion((string)packagesList.SelectedItems[0].Tag)));
                 _ftp.DeleteDirectory($"{_ftp.Directory}/{packageVersion}");
             }
             catch (Exception deletingEx)
@@ -1887,8 +1887,8 @@ namespace nUpdate.Administration.UI.Dialogs
                                 updateConfig.First(
                                     item =>
                                     {
-                                        var listViewItem = (ListViewItem) enumerator.Current;
-                                        return listViewItem != null && item.LiteralVersion == (string) listViewItem.Tag;
+                                        var listViewItem = (ListViewItem)enumerator.Current;
+                                        return listViewItem != null && item.LiteralVersion == (string)listViewItem.Tag;
                                     }));
                         }
                         catch
@@ -1951,7 +1951,7 @@ namespace nUpdate.Administration.UI.Dialogs
 
                 while (enumerator.MoveNext())
                 {
-                    var selectedItem = (ListViewItem) enumerator.Current;
+                    var selectedItem = (ListViewItem)enumerator.Current;
                     ListViewGroup releasedGroup = null;
                     Invoke(new Action(() => releasedGroup = packagesList.Groups[0]));
                     if (selectedItem != null && selectedItem.Group == releasedGroup) // Must be deleted online, too.
@@ -2035,8 +2035,8 @@ namespace nUpdate.Administration.UI.Dialogs
                             Project.Packages.First(
                                 item =>
                                 {
-                                    var listViewItem = (ListViewItem) enumerator.Current;
-                                    return listViewItem != null && item.Version == (string) listViewItem.Tag;
+                                    var listViewItem = (ListViewItem)enumerator.Current;
+                                    return listViewItem != null && item.Version == (string)listViewItem.Tag;
                                 }));
                         UpdateProject.SaveProject(Project.Path, Project);
                     }
@@ -2060,7 +2060,7 @@ namespace nUpdate.Administration.UI.Dialogs
                         var connectionString = $"SERVER='{Project.SqlWebUrl}';" +
                                                $"DATABASE='{Project.SqlDatabaseName}';" +
                                                $"UID='{Project.SqlUsername}';" +
-                                               $"PASSWORD='{SqlPassword.ConvertToInsecureString()}';";
+                                               $"PASSWORD='{SqlPassword.ConvertToInsecureString()}';SslMode=None;AllowPublicKeyRetrieval=true;";
 
                         MySqlConnection deleteConnection = null;
                         try
@@ -2107,7 +2107,7 @@ namespace nUpdate.Administration.UI.Dialogs
                         {
                             dataReader = queryCommand.ExecuteReader();
                             dataReader.Read();
-                            versionId = (int) dataReader.GetValue(0);
+                            versionId = (int)dataReader.GetValue(0);
                         }
                         catch (Exception ex)
                         {
@@ -2152,7 +2152,7 @@ DELETE FROM Version WHERE `ID` = {0};", versionId);
                     }
 
                     if (selectedItem != null)
-                        _updateLog.Write(LogEntry.Delete, new UpdateVersion((string) selectedItem.Tag).FullText);
+                        _updateLog.Write(LogEntry.Delete, new UpdateVersion((string)selectedItem.Tag).FullText);
                 }
 
                 SetUiState(true);
